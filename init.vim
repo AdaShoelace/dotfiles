@@ -184,8 +184,9 @@ if has("nvim")
 				\}
 	let g:ale_rust_use_clippy = 1
 	let g:ale_rust_cargo_clippy = executable('cargo-clippy')
+				"\	'rust': ['cargo'],
 	let g:ale_linters = {
-				\	'rust': ['cargo'],
+				\	'rust': ['analyzer'],
 				\	'cpp': ['gcc'],
 				\	'c': ['avr-gcc'],
 				\	'go': ['gofmt', 'golint', 'go vet'],
@@ -194,8 +195,9 @@ if has("nvim")
 				\}
 endif
 
+			"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
 let g:LanguageClient_serverCommands = {
-			\ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+			\ 'rust': ['rust-analyzer'],
 			\ 'python': ['/usr/bin/pyls'],
 			\ 'cpp': ['clangd'],
 			\ 'c': ['clangd'],
@@ -210,6 +212,7 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> <F7> :call LanguageClient_textDocument_references()<CR>
 nnoremap <silent> <C-K> :call LanguageClient_textDocument_codeAction()<CR>
+nnoremap <silent> <C-S> :call LanguageClient_textDocument_implementation()<CR>
 
 "command to open term
 command Vterm execute "vsp | term"
