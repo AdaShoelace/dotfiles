@@ -1,8 +1,8 @@
 (
     modKey: "Super",
     borderWidth: 2,
-    borderColor: Custom ("#6aac7e"),
-    backgroundColor: Custom ("#99978b"),
+    borderColor: Custom ("#62d196"),
+    backgroundColor: Custom ("#1e1c31"),
     focusedBackgroundColor: DefaultFocusedBackground,
     outerGap: 14,
     innerGap: 6,
@@ -113,12 +113,16 @@
             key: Letter("d"),
             effect: Custom ((
                     execTime: Now,
-                    program: "dmenu_recency",
-                    args: []
+                    program: "rofi",
+                    args: [
+					"-show",
+					"drun"
+					]
             ))
         ),
         (
-            key: Letter("Control"),
+            key: Letter("Up"),
+			modKey: Some("Alt"),
             effect: Custom((
                     execTime: Now,
                     program: "pactl",
@@ -130,8 +134,8 @@
             ))
         ),
         (
-            key: Letter("Control"),
-            modKey: Some("Shift"),
+            key: Letter("Down"),
+            modKey: Some("Alt"),
             effect: Custom((
                     execTime: Now,
                     program: "pactl",
@@ -158,7 +162,7 @@
                 program: "feh",
                 args: [
                 "--bg-scale",
-                "/home/pierre/Pictures/japan.jpg"
+                "/home/ada/Pictures/challenger-deep.png"
                 ]
             ),
             (
@@ -166,7 +170,7 @@
                 program: "polybar",
                 args: [
 				"-q",
-                "--config=/home/pierre/.config/polybar/config",
+                "--config=/home/ada/.config/polybar/config",
                 "DisplayPort-1"
                 ]
             ),
@@ -175,9 +179,14 @@
                 program: "polybar",
                 args: [
 				"-q",
-                "--config=/home/pierre/.config/polybar/config",
+                "--config=/home/ada/.config/polybar/config",
                 "DisplayPort-2"
                 ]
+            ),
+            (
+                execTime: Post,
+                program: "picom",
+                args: []
             ),
 			(
 				execTime: Post,

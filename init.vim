@@ -31,6 +31,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'dyng/ctrlsf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dart-lang/dart-vim-plugin'
@@ -57,8 +58,8 @@ augroup filetype_rust
 augroup END
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#rust#racer_binary='/home/pierre/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:deoplete#sources#rust#racer_binary='/home/ada/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/home/ada/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 let g:rainbow_active = 1
 let g:goyo_linenr = 1
@@ -127,8 +128,11 @@ set shiftwidth=4
 
 set background=dark
 
-"colorscheme
-colorscheme gruvbox
+if has('nvim') || has('termguicolors')
+	set termguicolors
+endif
+
+colorscheme challenger_deep
 
 setlocal foldmethod=syntax
 set foldlevelstart=99
@@ -162,7 +166,7 @@ set cursorline
 "Autoformat map
 nmap <S-f> :Autoformat<CR>
 
-let g:racer_cmd = "/home/pierre/.cargo/bin/racer"
+let g:racer_cmd = "/home/ada/.cargo/bin/racer"
 
 let g:airline_powerline_fonts = 1
 
@@ -201,7 +205,7 @@ let g:LanguageClient_serverCommands = {
 			\ 'python': ['/usr/bin/pyls'],
 			\ 'cpp': ['clangd'],
 			\ 'c': ['clangd'],
-			\ 'crystal': ['/home/pierre/Programming/crystal/scry'],
+			\ 'crystal': ['/home/ada/Programming/crystal/scry'],
 			\}
 
 let g:LanguageClient_autoStart = 1

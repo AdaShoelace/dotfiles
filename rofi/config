@@ -1,0 +1,47 @@
+
+!
+! rofi Config Gaps
+!
+! Adapted From https://github.com/ganifladi/linux/blob/master/config/rofi/config
+! By Richard Rabe
+!
+
+! Location
+! 1   2   3
+! 8   0   4
+! 7   6   5
+rofi.location: 0
+rofi.xoffset: 0
+rofi.yoffset: 0
+
+! "Enabled modi" Set from: Default
+rofi.modi: drun,window
+
+! "Window width" Set from: Default
+rofi.width: 1000
+
+! "Padding" Set from: Default
+rofi.padding: 300
+
+! "Number of lines" Set from: Default
+rofi.fixed-num-lines: true
+rofi.lines: 5
+rofi.line-margin: 25
+rofi.line-padding: 10
+
+! "Font to use" Set from: Default
+rofi.font: System RobotoMono for powerline 16
+
+! Tab to Advance
+rofi.kb-row-select "Tab"
+rofi.kb-row-tab ""
+
+rofi.opacity: 20
+rofi.fullscreen: true
+rofi.bw: 2
+rofi.fake-transparency: true
+rofi.hide-scrollbar: true
+rofi.separator-style: dash
+rofi.show-icons: true
+
+#include "/usr/share/rofi/themes//challenger.theme"
