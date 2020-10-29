@@ -12,12 +12,20 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 "Plug 'slashmili/alchemist.vim', {'for': ['elixir', 'eelixir']}
 Plug 'elixir-editors/vim-elixir'
+
+" Dart
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
+
 Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
-			\ 'do': 'bash install.sh'
+			"\ 'do': 'bash install.sh'
+			\ 'do': 'make release'
 			\}
+
 "nim autocomplete
-"Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/goyo.vim'
 Plug 'rhysd/vim-crystal'
@@ -59,8 +67,14 @@ augroup filetype_rust
 augroup END
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#rust#racer_binary='/home/ada/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='/home/ada/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+"let g:deoplete#sources#rust#rust_source_path='/home/ada/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rsut/library'
+call deoplete#custom#option({
+            \ 'sources': { 
+            \       '_': ['file'],
+            \       'vim': ['vim'],
+            \       },
+            \ 'omni_patterns': { 'go': '[^. *\t]\.\w*' }
+            \ })
 
 let g:rainbow_active = 1
 let g:goyo_linenr = 1
@@ -176,7 +190,7 @@ let g:airline_powerline_fonts = 1
 "ale linter dictrionary
 if has("nvim")
 	let g:ale_rust_cargo_use_check = 1
-	let g:ale_rust_rls_executable = 'rls'
+	let g:ale_rust_rls_executable = '/home/ada/.local/bin/rust-analyzer'
 	let g:ale_rust_rls_config = {
 				\ 'rust': {
 				\ 'all_targets':1,
@@ -192,9 +206,10 @@ if has("nvim")
 				"\	'rust': ['cargo'],
 	let g:ale_linters = {
 				\	'rust': ['analyzer'],
+				\	'dart': ['dart_language_server'],
 				\	'cpp': ['gcc'],
 				\	'c': ['avr-gcc'],
-				\	'go': ['gofmt', 'golint', 'go vet'],
+				\	'go': ['gopls'],
 				\	'javascript': ['eslint'],
 				\	'python': ['/usr/bin/pyls']
 				\}
@@ -203,12 +218,15 @@ endif
 			"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
 let g:LanguageClient_serverCommands = {
 			\ 'rust': ['rust-analyzer'],
+			\ 'go': ['gopls'],
+			\ 'dart': ['dart_language_server'],
 			\ 'python': ['/usr/bin/pyls'],
 			\ 'cpp': ['clangd'],
 			\ 'c': ['clangd'],
 			\ 'crystal': ['/home/ada/Programming/crystal/scry'],
 			\}
 
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 let g:LanguageClient_autoStart = 1
 
 " Maps K to hover, gd to goto definition, F2 to rename
