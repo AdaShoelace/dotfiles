@@ -20,11 +20,13 @@ Plug 'natebosch/vim-lsc-dart'
 
 Plug 'autozimu/LanguageClient-neovim', {
 			\ 'branch': 'next',
-			"\ 'do': 'bash install.sh'
-			\ 'do': 'make release'
+			\ 'do': 'bash install.sh'
 			\}
+Plug 'ziglang/zig.vim'
+" Snippets
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
-"nim autocomplete
 Plug 'fatih/vim-go'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/goyo.vim'
@@ -67,15 +69,6 @@ augroup filetype_rust
 augroup END
 
 let g:deoplete#enable_at_startup = 1
-"let g:deoplete#sources#rust#rust_source_path='/home/ada/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rsut/library'
-call deoplete#custom#option({
-            \ 'sources': { 
-            \       '_': ['file'],
-            \       'vim': ['vim'],
-            \       },
-            \ 'omni_patterns': { 'go': '[^. *\t]\.\w*' }
-            \ })
-
 let g:rainbow_active = 1
 let g:goyo_linenr = 1
 "filetype plugin indent on    " required
@@ -181,44 +174,30 @@ set cursorline
 "Autoformat map
 nmap <S-f> :Autoformat<CR>
 
-let g:racer_cmd = "/home/ada/.cargo/bin/racer"
-
 let g:airline_powerline_fonts = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:airline#extensions#ale#enabled = 1
 
-"  'rust': ['cargo'],
-"
 "ale linter dictrionary
 if has("nvim")
-	let g:ale_rust_cargo_use_check = 1
-	let g:ale_rust_rls_executable = '/home/ada/.local/bin/rust-analyzer'
-	let g:ale_rust_rls_config = {
-				\ 'rust': {
-				\ 'all_targets':1,
-				\ 'build_on_save': 1,
-				\ 'clippy_preference': 'on'
-				\}
-				\}
-	let g:ale_fixers = {
-				\ 'rust': ['rustfmt']
-				\}
-	let g:ale_rust_use_clippy = 1
-	let g:ale_rust_cargo_clippy = executable('cargo-clippy')
-				"\	'rust': ['cargo'],
 	let g:ale_linters = {
-				\	'rust': ['analyzer'],
 				\	'dart': ['dart_language_server'],
 				\	'cpp': ['gcc'],
 				\	'c': ['avr-gcc'],
-				\	'go': ['gopls'],
 				\	'javascript': ['eslint'],
 				\	'python': ['/usr/bin/pyls']
 				\}
 endif
 
-			"\ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
 let g:LanguageClient_serverCommands = {
-			\ 'rust': ['rust-analyzer'],
-			\ 'go': ['gopls'],
 			\ 'dart': ['dart_language_server'],
 			\ 'python': ['/usr/bin/pyls'],
 			\ 'cpp': ['clangd'],
@@ -226,9 +205,7 @@ let g:LanguageClient_serverCommands = {
 			\ 'crystal': ['/home/ada/Programming/crystal/scry'],
 			\}
 
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-let g:LanguageClient_autoStart = 1
-
+"let g:LanguageClient_useVirtualText = "All"
 " Maps K to hover, gd to goto definition, F2 to rename
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
