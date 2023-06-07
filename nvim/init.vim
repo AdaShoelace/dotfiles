@@ -9,7 +9,7 @@
 set nocompatible              " be iMproved, required
 "filetype off                  " required
 call plug#begin('~/.config/nvim/bundle')
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 "Plug 'slashmili/alchemist.vim', {'for': ['elixir', 'eelixir']}
 Plug 'elixir-editors/vim-elixir'
 
@@ -23,6 +23,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 			\ 'do': 'bash install.sh'
 			\}
 Plug 'ziglang/zig.vim'
+
 " Snippets
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
@@ -40,26 +41,29 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'morhetz/gruvbox'
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'dyng/ctrlsf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'airblade/vim-rooter'
-"Plug 'rhysd/vim-clang-format'
+Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
-Plug 'reasonml-editor/vim-reason-plus'
-
-"code stats tracker
-Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
-
 " Multi-entry selection UI. FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" Terraform
+Plug 'hashivim/vim-terraform'
+
+"zen mode
+Plug 'folke/zen-mode.nvim'
 
 call plug#end()
 
@@ -68,7 +72,7 @@ augroup filetype_rust
 	autocmd BufReadPost *.rs setlocal filetype=rust
 augroup END
 
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 let g:rainbow_active = 1
 let g:goyo_linenr = 1
 "filetype plugin indent on    " required
@@ -140,7 +144,7 @@ if has('nvim') || has('termguicolors')
 	set termguicolors
 endif
 
-colorscheme challenger_deep
+colorscheme gruvbox
 
 setlocal foldmethod=syntax
 set foldlevelstart=99
@@ -207,21 +211,27 @@ let g:LanguageClient_serverCommands = {
 
 "let g:LanguageClient_useVirtualText = "All"
 " Maps K to hover, gd to goto definition, F2 to rename
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <F7> :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> <C-K> :call LanguageClient_textDocument_codeAction()<CR>
+"nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+"nnoremap <silent> <F7> :call LanguageClient_textDocument_references()<CR>
+"nnoremap <silent> <C-K> :call LanguageClient_textDocument_codeAction()<CR>
 nnoremap <silent> <C-S> :call LanguageClient_textDocument_implementation()<CR>
+
+"CoC version of block above
+nnoremap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
+nnoremap <silent> <F2> <Plug>(coc-rename)
+nnoremap <silent> <F7> <Plug>(coc-references)
+nnoremap <silent> <C-K> <Plug>(coc-codeaction-selected)
+nnoremap <silent> <C-K> <Plug>(coc-codeaction)
 
 "command to open term
 command Vterm execute "vsp | term"
 
-"code stats API key
-let g:codestats_api_key = 'SFMyNTY.VFdGemRHVnlRbUZwZEE9PSMjTWpnNU13PT0.IqiHcOLg7lR9G4PgdOn7TyB7f91kar4SLfxlHLjXF50'
-
 "remap exit virtual terminal
 tnoremap <C-j><C-k> <C-\><C-n>
+
+" Show hidden files with ctrlp
+let g:ctrlp_show_hidden = 1
 
 "vim rooter project identifier
 let g:rooter_patterns = ['.git/']
@@ -230,3 +240,4 @@ if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep 
 	set grepformat=%f:%l:%c:%m
 endif
+
