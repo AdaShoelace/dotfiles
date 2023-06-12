@@ -24,6 +24,3 @@ endif
 let g:LanguageClient_serverCommands = {
 			\ 'rust': ['rust-analyzer'],
 			\}
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>

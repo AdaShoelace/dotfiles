@@ -223,6 +223,7 @@ nnoremap <silent> <F2> <Plug>(coc-rename)
 nnoremap <silent> <F7> <Plug>(coc-references)
 nnoremap <silent> <C-K> <Plug>(coc-codeaction-selected)
 nnoremap <silent> <C-K> <Plug>(coc-codeaction)
+nmap <silent> K :call CocActionAsync('doHover')<CR>
 
 "command to open term
 command Vterm execute "vsp | term"
