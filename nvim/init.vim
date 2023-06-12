@@ -125,6 +125,8 @@ set showmatch		" Show matching brackets.
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
+let mapleader=","
+
 set nu rnu
 
 :augroup numbertoggle
@@ -219,11 +221,12 @@ nnoremap <silent> <C-S> :call LanguageClient_textDocument_implementation()<CR>
 
 "CoC version of block above
 nnoremap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
-nnoremap <silent> <F2> <Plug>(coc-rename)
+nmap <silent> <F2> <Plug>(coc-rename)
 nnoremap <silent> <F7> <Plug>(coc-references)
-nnoremap <silent> <C-K> <Plug>(coc-codeaction-selected)
+xmap <leader>k <Plug>(coc-codeaction-selected)
 nnoremap <silent> <C-K> <Plug>(coc-codeaction)
 nmap <silent> K :call CocActionAsync('doHover')<CR>
+nmap <leader>x <Plug>(coc-fix-current)
 
 "command to open term
 command Vterm execute "vsp | term"
