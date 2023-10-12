@@ -33,4 +33,5 @@ return {
 	"hrsh7th/vim-vsnip",
 
 	"nvim-treesitter/nvim-treesitter",
+	"puremourning/vimspector",
 }
