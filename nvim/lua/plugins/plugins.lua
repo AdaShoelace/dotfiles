@@ -15,9 +15,17 @@ return {
 	-- Mason
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
-
-	"neovim/nvim-lspconfig",
-
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("plugins.configs.lspconfig")
+		end,
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
 	-- Completion framework:
 	"hrsh7th/nvim-cmp",
 

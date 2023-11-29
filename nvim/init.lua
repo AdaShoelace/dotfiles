@@ -43,11 +43,37 @@ rt.setup({
 	server = {
 		on_attach = function(_, bufnr)
 			-- Hover actions
-			vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+			vim.keymap.set("n", "<C-Space>", rt.hover_actions.hover_actions, { buffer = bufnr })
 			-- Code action groups
 			vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
 		end,
 	},
+})
+
+local lsp_cmds = vim.api.nvim_create_augroup("lsp_cmds", { clear = true })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = lsp_cmds,
+	desc = "LSP actions",
+	callback = function()
+		local bufmap = function(mode, lhs, rhs)
+			vim.keymap.set(mode, lhs, rhs, { buffer = true })
+		end
+
+		bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+		bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+		bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+		bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+		bufmap("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+		bufmap("n", "<F7>", "<cmd>lua vim.lsp.buf.references()<cr>")
+		bufmap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+		bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
+		bufmap({ "n", "x" }, "<Leader>f", "<cmd>lua vim.lsp.buf.format({async = true})<cr>")
+		bufmap("n", "<Leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+		bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
+		bufmap("n", "<C-p>", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+		bufmap("n", "<C-n>", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+	end,
 })
 
 -- LSP Diagnostics Options Setup
@@ -154,3 +180,13 @@ require("nvim-treesitter.configs").setup({
 
 -- Code formatting
 vim.keymap.set("n", "<Leader>f", vim.lsp.buf.format, { remap = false })
+
+-- Indentation
+vim.api.nvim_exec(
+	[[
+    set shiftwidth=4
+    set tabstop=4
+    set softtabstop=4
+    ]],
+	false
+)
