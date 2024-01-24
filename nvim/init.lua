@@ -11,7 +11,12 @@ require("mason").setup({
 		},
 	},
 })
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"slint_lsp",
+		"rust_analyzer",
+	},
+})
 
 -- FTerm config
 require("FTerm").setup({
@@ -71,8 +76,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		bufmap({ "n", "x" }, "<Leader>f", "<cmd>lua vim.lsp.buf.format({async = true})<cr>")
 		bufmap("n", "<Leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 		bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-		bufmap("n", "<C-p>", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-		bufmap("n", "<C-n>", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+		-- bufmap("n", "<C-p>", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+		-- bufmap("n", "<C-n>", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 	end,
 })
 
@@ -164,7 +169,7 @@ cmp.setup({
 
 -- Treesitter Plugin Setup
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "lua", "rust", "toml" },
+	ensure_installed = { "lua", "rust", "toml", "slint" },
 	auto_install = true,
 	highlight = {
 		enable = true,
@@ -190,3 +195,9 @@ vim.api.nvim_exec(
     ]],
 	false
 )
+
+-- Recognize slint files
+vim.cmd([[ autocmd BufEnter *.slint :setlocal filetype=slint ]])
+
+require("fzf-lua").setup({ "fzf-vim" })
+require("lspconfig").slint_lsp.setup({})

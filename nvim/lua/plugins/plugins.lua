@@ -3,10 +3,15 @@ return {
 	"vim-airline/vim-airline-themes",
 	"scrooloose/nerdtree",
 	"fatih/vim-go",
-	"ctrlpvim/ctrlp.vim",
 	"tpope/vim-surround",
 	"jiangmiao/auto-pairs",
-	"ibhagwan/fzf-lua",
+	"ctrlpvim/ctrlp.vim",
+	{ "junegunn/fzf", build = "./install --bin" },
+	{
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 	"numToStr/FTerm.nvim",
 	"morhetz/gruvbox",
 	"svermeulen/vimpeccable",
@@ -21,11 +26,7 @@ return {
 			require("plugins.configs.lspconfig")
 		end,
 	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
+	"mfussenegger/nvim-jdtls",
 	-- Completion framework:
 	"hrsh7th/nvim-cmp",
 
@@ -42,4 +43,7 @@ return {
 
 	"nvim-treesitter/nvim-treesitter",
 	"puremourning/vimspector",
+
+	-- Slint support
+	"slint-ui/vim-slint",
 }

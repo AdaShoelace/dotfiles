@@ -10,3 +10,5 @@ nmap <F10> <cmd>call vimspector#StepInto()<cr>")
 map("n", "Db", ":call vimspector#ToggleBreakpoint()<cr>")
 map("n", "Dw", ":call vimspector#AddWatch()<cr>")
 map("n", "De", ":call vimspector#Evaluate()<cr>")
+
+vim.keymap.set("n", "<C-p", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
