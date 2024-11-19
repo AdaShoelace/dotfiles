@@ -33,7 +33,7 @@ return require("packer").startup(function(use)
 	use {
 		'neovim/nvim-lspconfig',
 		config = function()
-			require('core.plugin_config.lspconfig')
+			require('core.lsp')
 		end,
 	}
 	use 'numToStr/FTerm.nvim'
