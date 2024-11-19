@@ -1,17 +1,17 @@
 return {
-	"vim-airline/vim-airline",
-	"vim-airline/vim-airline-themes",
-	"scrooloose/nerdtree",
-	"fatih/vim-go",
-	"tpope/vim-surround",
-	"jiangmiao/auto-pairs",
-	"ctrlpvim/ctrlp.vim",
-	{ "junegunn/fzf", build = "./install --bin" },
-	{
-		"ibhagwan/fzf-lua",
-		-- optional for icon support
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
+	--"vim-airline/vim-airline",
+	--"vim-airline/vim-airline-themes",
+	--"scrooloose/nerdtree",
+	--"fatih/vim-go",
+	--"tpope/vim-surround",
+	--"jiangmiao/auto-pairs",
+	--"ctrlpvim/ctrlp.vim",
+	--{ "junegunn/fzf", build = "./install --bin" },
+	--{
+	--	"ibhagwan/fzf-lua",
+	--	-- optional for icon support
+	--	dependencies = { "nvim-tree/nvim-web-devicons" },
+	--},
 	"numToStr/FTerm.nvim",
 	"morhetz/gruvbox",
 	"svermeulen/vimpeccable",
