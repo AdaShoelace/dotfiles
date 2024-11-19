@@ -7,3 +7,5 @@ require("core.plugin_config.mason")
 require("core.plugin_config.mason-lspconfig")
 require("core.plugin_config.rust-tools")
 require("core.plugin_config.nvim-cmp")
+require("core.plugin_config.vimspector")
+

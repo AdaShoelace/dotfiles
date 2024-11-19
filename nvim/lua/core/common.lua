@@ -22,3 +22,7 @@ vim.wo.foldmethod = "indent"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.opt.foldlevelstart = 99
+
+
+
+
